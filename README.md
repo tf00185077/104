@@ -1,70 +1,86 @@
-# Getting Started with Create React App
+### 需求理解
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+題目要求開發一個 Markdown 預覽器，核心需求明確：
 
-## Available Scripts
+1. **技術棧**：React（不限工具鏈）
+2. **介面布局**：左右分欄，左側輸入、右側預覽
+3. **核心功能**：即時轉換 Markdown 為 HTML
+4. **語法支援**：標題、粗體/斜體、程式碼區塊、超連結
+5. **樣式要求**：預覽區需有基本樣式
 
-In the project directory, you can run:
+### 專案結構規劃專案結構極簡：
 
-### `npm start`
+1. **使用 `react-markdown` 庫**：避免手寫 Markdown 解析器，這是個已解決的問題，不需要重造輪子
+2. **單一狀態管理**：僅用一個 `useState` 管理 Markdown 文字，無需複雜狀態管理
+3. **CSS 原生樣式**：不使用 UI 框架，保持依賴最小化
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## 開發過程中使用的 AI 工具
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### 使用的 AI 工具
 
-### `npm test`
+本專案全程使用 **Cursor（Auto）** 進行開發。
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 使用方式
 
-### `npm run build`
+#### 1. 需求分析階段
+- **使用場景**：理解題目需求，進行技術選型分析
+- **AI 協助內容**：
+  - 分析需求的核心與邊界
+  - 評估不同 Markdown 解析方案的優劣（手寫 vs 使用庫）
+  - 確認專案結構的合理性
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+#### 2. 初始實作階段
+- **使用場景**：生成核心組件代碼
+- **AI 協助內容**：
+  - 整合 `react-markdown` 庫的使用方式
+  - 生成初始 CSS 樣式
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+#### 3. 樣式優化階段
+- **使用場景**：完善預覽區的 Markdown 渲染樣式
+- **AI 協助內容**：
+  - 生成標題、程式碼區塊、連結等元素的 CSS 樣式
+  - 確保樣式符合常見 Markdown 渲染器的視覺習慣
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### AI 回覆的品質與判斷
 
-### `npm run eject`
+#### ✅ 哪些 AI 回覆幫助最大？
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+1. **技術選型建議**
+   - **內容**：建議使用 `react-markdown` 而非手寫解析器
+   - **價值**：節省大量時間，避免重複造輪子，符合「解決真實問題」的原則
+   - **判斷依據**：這是業界標準做法，庫的維護和測試更完善
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+3. **樣式實現**
+   - **內容**：提供完整的 Markdown 預覽樣式 CSS
+   - **價值**：快速實現視覺效果，涵蓋所有需要的元素樣式
+   - **判斷依據**：樣式符合 Markdown 渲染器的常見視覺規範
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+#### ❌ 哪些回覆錯誤或不實用？
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+1. **命令執行錯誤**
+   - **問題**：AI 最初使用 `&&` 連接命令，在 Windows CMD 中失敗
+   - **原因**：AI 假設了 Unix-like 環境
+   - **修正方式**：分開執行命令，先 `cd` 再執行 `npm install`
+   - **教訓**：需要考慮跨平台兼容性
 
-## Learn More
+2. **過度複雜化的建議（未採用）**
+   - **問題**：AI 曾建議使用狀態管理庫（如 Redux）或 UI 框架
+   - **判斷**：對於這個簡單專案，這些都是過度設計
+   - **決策**：拒絕這些建議，保持最小依賴
+   - **理由**：符合「解決真實問題，而非想像中的問題」原則
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+#### 🔍 如何判斷與修正錯誤？
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+**判斷標準（Linus 風格）：**
 
-### Code Splitting
+1. **實用性檢查**
+   - 問自己：這真的解決問題嗎？還是只是看起來「專業」？
+   - 例子：拒絕 Redux，因為單一狀態不需要複雜管理
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+2. **簡單性檢查**
+   - 問自己：有更簡單的方法嗎？
+   - 例子：使用庫而非手寫解析器，因為問題已解決
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+3. **破壞性檢查**
+   - 問自己：這會破壞現有功能嗎？
+   - 例子：所有修改都在新文件中，不影響 CRA 預設結構
